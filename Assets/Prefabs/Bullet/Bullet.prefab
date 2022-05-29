@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5593266217649078186}
   - component: {fileID: 1342844290820846340}
   - component: {fileID: 6449086348183260102}
+  - component: {fileID: 2237282529301217717}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -305,3 +306,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959527b5fe0da9e4aa38b875683d47d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitAnAsteroid: 0
+--- !u!114 &2237282529301217717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399908031659076542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce01e9c14df29c448905e001bf92fe43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 5

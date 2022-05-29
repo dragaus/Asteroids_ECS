@@ -21,7 +21,7 @@ public partial class BulletCollisionSystem : SystemBase
     [BurstCompile]
     struct ColllisonEventJob : ICollisionEventsJob
     {
-        [ReadOnly] public ComponentDataFromEntity<BulletData> bulletGroup;
+        public ComponentDataFromEntity<BulletData> bulletGroup;
         public ComponentDataFromEntity<DestroyNowData> destroyables;
 
         public void Execute(CollisionEvent collisionEvent)
@@ -40,6 +40,9 @@ public partial class BulletCollisionSystem : SystemBase
                 var destroyData = destroyables[entityB];
                 destroyData.shouldBeDestroy = true;
                 destroyables[entityB] = destroyData;
+                var bulletData = bulletGroup[entityA];
+                bulletData.hitAnAsteroid = true;
+                bulletGroup[entityA] = bulletData;
             }
 
             if (isTargetA && isBulletB)
@@ -47,6 +50,9 @@ public partial class BulletCollisionSystem : SystemBase
                 var destroyData = destroyables[entityA];
                 destroyData.shouldBeDestroy = true;
                 destroyables[entityA] = destroyData;
+                var bulletData = bulletGroup[entityB];
+                bulletData.hitAnAsteroid = true;
+                bulletGroup[entityB] = bulletData;
             }
         }
     }

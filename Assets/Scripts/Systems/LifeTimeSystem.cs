@@ -1,8 +1,7 @@
 using Unity.Entities;
 
-[UpdateAfter(typeof(MovementSystem))]
-[UpdateAfter(typeof(RotateSystem))]
-public partial class DestroySystem : SystemBase
+[UpdateAfter(typeof(DestroySystem))]
+public partial class LifeTimeSystem : SystemBase
 {
     EndSimulationEntityCommandBufferSystem buffer;
 
@@ -14,18 +13,20 @@ public partial class DestroySystem : SystemBase
     protected override void OnUpdate()
     {
         EntityCommandBuffer.ParallelWriter ecb = buffer.CreateCommandBuffer().AsParallelWriter();
+        float deltaTime = Time.DeltaTime;
 
         Entities
-            .WithName("DestroySystem")
-            .ForEach((Entity entity, int entityInQueryIndex, ref DestroyNowData destroyNow) =>
+            .WithName("LifeTimeSystem")
+            .ForEach((Entity entity, int entityInQueryIndex, ref LifeTimeData lifeTimeData) => 
             {
-                if (destroyNow.shouldBeDestroy)
+                lifeTimeData.lifeTime -= deltaTime;
+                if (lifeTimeData.lifeTime <= 0)
                 {
                     ecb.DestroyEntity(entityInQueryIndex, entity);
                 }
             })
             .ScheduleParallel();
 
-        buffer.AddJobHandleForProducer(Dependency);
+        buffer.AddJobHandleForProducer(this.Dependency);
     }
 }
