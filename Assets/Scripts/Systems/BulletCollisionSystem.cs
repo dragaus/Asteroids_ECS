@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Jobs;
+using UnityEngine;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(BuildPhysicsWorld))]
@@ -31,8 +32,8 @@ public partial class BulletCollisionSystem : SystemBase
             bool isTargetA = destroyables.HasComponent(entityA);
             bool isTargetB = destroyables.HasComponent(entityB);
 
-            bool isBulletA = destroyables.HasComponent(entityA);
-            bool isBulletB = destroyables.HasComponent(entityB);
+            bool isBulletB = bulletGroup.HasComponent(entityB);
+            bool isBulletA = bulletGroup.HasComponent(entityA);
 
             if (isBulletA && isTargetB)
             {
