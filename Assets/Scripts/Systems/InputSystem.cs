@@ -40,7 +40,7 @@ public partial class InputSystem : SystemBase
 
         Entities
             .WithName("InputSystem")
-            .ForEach((ref PlayerComponent playerComponent, ref RotateComponent rotate, ref PhysicsMovementComponent movementComponent, ref ShooterComponent shooter) =>
+            .ForEach((ref PlayerData playerComponent, ref RotateData rotate, ref PhysicsMovementData movementComponent, ref ShooterData shooter) =>
             {
                 movementComponent.movementSpeed = movementSpeed * movementComponent.baseMovementSpeed;
                 rotate.direction = rotation;

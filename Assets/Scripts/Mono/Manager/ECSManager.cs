@@ -14,12 +14,14 @@ public class ECSManager : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
 
     EntityManager entityManager;
+    BlobAssetStore blobAssetStore;
 
     // Start is called before the first frame update
     void Start()
     {
+        blobAssetStore = new BlobAssetStore();
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore);
 
         var playerEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(playerPrefab, settings);
         var bigAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bigAsteroidPrefab, settings);
@@ -40,9 +42,14 @@ public class ECSManager : MonoBehaviour
 
             entityManager.SetComponentData(asteroidInstance, new Translation { Value = position });
             entityManager.SetComponentData(asteroidInstance, new Rotation { Value = quaternion.Euler(0, 0, rotationZ) });
-            entityManager.SetComponentData(asteroidInstance, new MovementComponent { movementSpeed = 2, baseMovementSpeed = 2 });
+            entityManager.SetComponentData(asteroidInstance, new MovementData { movementSpeed = 2, baseMovementSpeed = 2 });
         }
 
         entityManager.Instantiate(playerEntity);
+    }
+
+    private void OnDestroy()
+    {
+        blobAssetStore.Dispose();
     }
 }

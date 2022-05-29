@@ -1,7 +1,7 @@
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public struct ShooterComponent : IComponentData
+public struct ShooterData : IComponentData
 {
     public bool hasToShoot;
     public bool canShoot;

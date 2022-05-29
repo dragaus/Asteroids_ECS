@@ -9,7 +9,7 @@ public partial class MovementSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         Entities
             .WithName("MovementSystem")
-            .ForEach((ref MovementComponent movementComponent, ref Translation position, ref Rotation rotation) =>
+            .ForEach((ref MovementData movementComponent, ref Translation position, ref Rotation rotation) =>
             {
                 var axis = math.mul(rotation.Value, new float3(0f, 1f, 0f));
                 position.Value += axis * movementComponent.movementSpeed * deltaTime;

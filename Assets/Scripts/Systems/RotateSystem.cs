@@ -9,7 +9,7 @@ public partial class RotateSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         Entities
             .WithName("RotateSystem")
-            .ForEach((Entity entity, ref RotateComponent rotateComponent, ref Rotation rotation) =>
+            .ForEach((Entity entity, ref RotateData rotateComponent, ref Rotation rotation) =>
             {
                 var rotateZ = quaternion.RotateZ(math.radians(rotateComponent.direction * rotateComponent.rotateSpeed * deltaTime));
                 rotation.Value = math.mul(rotation.Value, rotateZ);

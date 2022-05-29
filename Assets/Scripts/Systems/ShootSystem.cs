@@ -10,7 +10,7 @@ public partial class ShootSystem : SystemBase
             .WithoutBurst()
             .WithName("ShootSystem")
             .WithStructuralChanges()
-            .ForEach((ref ShooterComponent shooter, ref Rotation rotation, ref Translation position) =>
+            .ForEach((ref ShooterData shooter, ref Rotation rotation, ref Translation position) =>
             {
                 if (shooter.hasToShoot)
                 { 

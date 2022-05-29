@@ -10,7 +10,7 @@ public partial class PhysicsMovementSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         Entities
             .WithName("PhysicsMovementSystem")
-            .ForEach((ref PhysicsMovementComponent movementComponent, ref PhysicsVelocity physics ,ref Translation position, ref Rotation rotation) =>
+            .ForEach((ref PhysicsMovementData movementComponent, ref PhysicsVelocity physics, ref PhysicsMass mass ,ref Translation position, ref Rotation rotation) =>
             {
                 var axis = math.mul(rotation.Value, new float3(0f, 1f, 0f));
                 physics.Linear += movementComponent.movementSpeed * deltaTime * axis;
