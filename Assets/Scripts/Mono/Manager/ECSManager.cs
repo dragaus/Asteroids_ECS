@@ -32,9 +32,7 @@ public class ECSManager : MonoBehaviour
 
         }
 
-        var playerInstance = entityManager.Instantiate(playerEntity);
-        entityManager.SetComponentData(playerInstance, new Translation { Value = new float3(0f, 0f, 0f) });
-        entityManager.SetComponentData(playerInstance, new Rotation { Value = new quaternion(0f, 0f, 0f, 1f) });
+        entityManager.Instantiate(playerEntity);
     }
 
     // Update is called once per frame
