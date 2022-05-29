@@ -27,8 +27,11 @@ public class ECSManager : MonoBehaviour
         {
             var asteroidInstance = entityManager.Instantiate(asteroidEntity);
             var position = new float3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-7, 7), 0);
+            float rotationZ = UnityEngine.Random.Range(0f, 360f);
+
             entityManager.SetComponentData(asteroidInstance, new Translation { Value = position });
-            entityManager.SetComponentData(asteroidInstance, new Rotation { Value = new quaternion(0, 0, 0, 0) });
+            entityManager.SetComponentData(asteroidInstance, new Rotation { Value = quaternion.Euler(0, 0, rotationZ) });
+            entityManager.SetComponentData(asteroidInstance, new MovementComponent { movementSpeed = 2, baseMovementSpeed = 2 });
 
         }
 
