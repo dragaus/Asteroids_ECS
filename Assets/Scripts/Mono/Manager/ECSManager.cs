@@ -6,7 +6,9 @@ using Unity.Mathematics;
 public class ECSManager : MonoBehaviour
 {
     public int initialAmountOfAsteroids;
-    [SerializeField] GameObject asteroidPrefab;
+    [SerializeField] GameObject bigAsteroidPrefab;
+    [SerializeField] GameObject mediumAsteroidPrefab;
+    [SerializeField] GameObject smallAsteroidPrefab;
 
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject bulletPrefab;
@@ -20,27 +22,27 @@ public class ECSManager : MonoBehaviour
         var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
 
         var playerEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(playerPrefab, settings);
-        var asteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidPrefab, settings);
+        var bigAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bigAsteroidPrefab, settings);
+        var mediumAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(mediumAsteroidPrefab, settings);
+        var smallAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(smallAsteroidPrefab, settings);
         var bulletEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bulletPrefab, settings);
+
+        GameDataManager.instance.bigAsteroidEntity = bigAsteroidEntity;
+        GameDataManager.instance.mediumAsteroidEntity = mediumAsteroidEntity;
+        GameDataManager.instance.smallAsteroidEntity = smallAsteroidEntity;
+        GameDataManager.instance.bulletEntity = bulletEntity;
 
         for (int i = 0; i < initialAmountOfAsteroids; i++)
         {
-            var asteroidInstance = entityManager.Instantiate(asteroidEntity);
+            var asteroidInstance = entityManager.Instantiate(bigAsteroidEntity);
             var position = new float3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-7, 7), 0);
             float rotationZ = UnityEngine.Random.Range(0f, 360f);
 
             entityManager.SetComponentData(asteroidInstance, new Translation { Value = position });
             entityManager.SetComponentData(asteroidInstance, new Rotation { Value = quaternion.Euler(0, 0, rotationZ) });
             entityManager.SetComponentData(asteroidInstance, new MovementComponent { movementSpeed = 2, baseMovementSpeed = 2 });
-
         }
 
         entityManager.Instantiate(playerEntity);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

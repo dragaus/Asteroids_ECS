@@ -5,10 +5,13 @@ public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager instance;
 
-    public Entity asteroidEntity;
+    public Entity bigAsteroidEntity;
+    public Entity mediumAsteroidEntity;
+    public Entity smallAsteroidEntity;
     public Entity bulletEntity;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
