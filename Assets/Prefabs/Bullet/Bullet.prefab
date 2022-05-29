@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6311181305968655933}
   - component: {fileID: 3601855690470572579}
   - component: {fileID: 6988169794340789577}
+  - component: {fileID: -5593266217649078186}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5399908031659076542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.877, y: 0.96, z: -0.009}
-  m_LocalScale: {x: 0.15531085, y: 0.383273, z: 0.15531085}
+  m_LocalScale: {x: 0.2570084, y: 0.6342402, z: 0.2570084}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,3 +111,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMovementSpeed: 0
   movementSpeed: 12
+  deaccleration: 0
+--- !u!114 &-5593266217649078186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399908031659076542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MotionType: 0
+  m_Smoothing: 0
+  m_Mass: 1
+  m_LinearDamping: 0.01
+  m_AngularDamping: 0.05
+  m_InitialLinearVelocity:
+    x: 0
+    y: 0
+    z: 0
+  m_InitialAngularVelocity:
+    x: 0
+    y: 0
+    z: 0
+  m_GravityFactor: 0
+  m_OverrideDefaultMassDistribution: 0
+  m_CenterOfMass:
+    x: 0
+    y: 0
+    z: 0
+  m_Orientation:
+    Value:
+      x: 0
+      y: 0
+      z: 0
+    RotationOrder: 4
+  m_InertiaTensor:
+    x: 0.4
+    y: 0.4
+    z: 0.4
+  m_WorldIndex: 0
+  m_CustomTags:
+    Tag00: 0
+    Tag01: 0
+    Tag02: 0
+    Tag03: 0
+    Tag04: 0
+    Tag05: 0
+    Tag06: 0
+    Tag07: 0

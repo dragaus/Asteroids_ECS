@@ -3,6 +3,7 @@ using Unity.Entities;
 
 [UpdateBefore(typeof(RotateSystem))]
 [UpdateBefore(typeof(MovementSystem))]
+[UpdateBefore(typeof(PhysicsMovementSystem))]
 [UpdateBefore(typeof(ShootSystem))]
 public partial class InputSystem : SystemBase
 {
@@ -39,7 +40,7 @@ public partial class InputSystem : SystemBase
 
         Entities
             .WithName("InputSystem")
-            .ForEach((ref PlayerComponent playerComponent, ref RotateComponent rotate, ref MovementComponent movementComponent, ref ShooterComponent shooter) =>
+            .ForEach((ref PlayerComponent playerComponent, ref RotateComponent rotate, ref PhysicsMovementComponent movementComponent, ref ShooterComponent shooter) =>
             {
                 movementComponent.movementSpeed = movementSpeed * movementComponent.baseMovementSpeed;
                 rotate.direction = rotation;
