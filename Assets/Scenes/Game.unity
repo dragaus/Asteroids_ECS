@@ -170,6 +170,7 @@ MonoBehaviour:
   bigAsteroidPrefab: {fileID: 3847507020367329062, guid: 4a1157aea8446204396b9c7093a957bf, type: 3}
   mediumAsteroidPrefab: {fileID: 3847507020367329062, guid: 3062021d33d261b46ac6d887e48c6247, type: 3}
   smallAsteroidPrefab: {fileID: 3847507020367329062, guid: 77452a5c96a32de459697bd5cd3b5151, type: 3}
+  destroyAsteroidParticle: {fileID: 4657309856237531594, guid: 436176bbdbb4df940b93958fb3f84312, type: 3}
   playerPrefab: {fileID: 4667102795829840765, guid: 4c56a88e611e58545985b6dcc908c0ff, type: 3}
   bulletPrefab: {fileID: 5399908031659076542, guid: 64ce2b78f8f1b4645ba5e9a69dc598c1, type: 3}
 --- !u!1 &671064019

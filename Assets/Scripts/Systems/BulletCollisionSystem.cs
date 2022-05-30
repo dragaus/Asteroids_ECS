@@ -22,47 +22,48 @@ public partial class BulletCollisionSystem : SystemBase
     struct ColllisonEventJob : ICollisionEventsJob
     {
         public ComponentDataFromEntity<BulletData> bulletGroup;
-        public ComponentDataFromEntity<DestroyNowData> destroyables;
+        public ComponentDataFromEntity<AsteroidData> asteroidGroup;
 
         public void Execute(CollisionEvent collisionEvent)
         {
             Entity entityA = collisionEvent.EntityA;
             Entity entityB = collisionEvent.EntityB;
 
-            bool isTargetA = destroyables.HasComponent(entityA);
-            bool isTargetB = destroyables.HasComponent(entityB);
+            bool isTargetA = asteroidGroup.HasComponent(entityA);
+            bool isTargetB = asteroidGroup.HasComponent(entityB);
 
             bool isBulletB = bulletGroup.HasComponent(entityB);
             bool isBulletA = bulletGroup.HasComponent(entityA);
 
             if (isBulletA && isTargetB)
             {
-                var destroyData = destroyables[entityB];
-                destroyData.shouldBeDestroy = true;
-                destroyables[entityB] = destroyData;
-                var bulletData = bulletGroup[entityA];
-                bulletData.hitAnAsteroid = true;
-                bulletGroup[entityA] = bulletData;
+                SetCollisionData(ref entityB, ref entityA);
             }
 
             if (isTargetA && isBulletB)
             {
-                var destroyData = destroyables[entityA];
-                destroyData.shouldBeDestroy = true;
-                destroyables[entityA] = destroyData;
-                var bulletData = bulletGroup[entityB];
-                bulletData.hitAnAsteroid = true;
-                bulletGroup[entityB] = bulletData;
+                SetCollisionData(ref entityA, ref entityB);
             }
         }
+        void SetCollisionData(ref Entity entityA, ref Entity entityB)
+        {
+            var asteroidData = asteroidGroup[entityA];
+            asteroidData.shouldBeDestroy = true;
+            asteroidGroup[entityA] = asteroidData;
+            var bulletData = bulletGroup[entityB];
+            bulletData.hitAnAsteroid = true;
+            bulletData.asteroidSize = asteroidData.asteroidSize;
+            bulletGroup[entityB] = bulletData;
+        }
     }
+
 
     protected override void OnUpdate()
     {
         Dependency = new ColllisonEventJob
         {
             bulletGroup = GetComponentDataFromEntity<BulletData>(),
-            destroyables = GetComponentDataFromEntity<DestroyNowData>()
+            asteroidGroup = GetComponentDataFromEntity<AsteroidData>()
         }.Schedule(stepPhysicsWorld.Simulation, Dependency);
 
         Dependency.Complete();

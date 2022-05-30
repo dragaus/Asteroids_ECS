@@ -10,6 +10,8 @@ public class ECSManager : MonoBehaviour
     [SerializeField] GameObject mediumAsteroidPrefab;
     [SerializeField] GameObject smallAsteroidPrefab;
 
+    [SerializeField] GameObject destroyAsteroidParticle;
+
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject bulletPrefab;
 
@@ -28,11 +30,13 @@ public class ECSManager : MonoBehaviour
         var mediumAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(mediumAsteroidPrefab, settings);
         var smallAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(smallAsteroidPrefab, settings);
         var bulletEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bulletPrefab, settings);
+        var destroyAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(destroyAsteroidParticle, settings);
 
         GameDataManager.instance.bigAsteroidEntity = bigAsteroidEntity;
         GameDataManager.instance.mediumAsteroidEntity = mediumAsteroidEntity;
         GameDataManager.instance.smallAsteroidEntity = smallAsteroidEntity;
         GameDataManager.instance.bulletEntity = bulletEntity;
+        GameDataManager.instance.destroyAsteroidEntity= destroyAsteroidEntity;
 
         for (int i = 0; i < initialAmountOfAsteroids; i++)
         {

@@ -8,6 +8,7 @@ public class GameDataManager : MonoBehaviour
     public Entity bigAsteroidEntity;
     public Entity mediumAsteroidEntity;
     public Entity smallAsteroidEntity;
+    public Entity destroyAsteroidEntity;
     public Entity bulletEntity;
 
     // Start is called before the first frame update

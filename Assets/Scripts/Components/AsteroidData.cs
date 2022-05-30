@@ -1,8 +1,8 @@
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public struct BulletData : IComponentData
+public struct AsteroidData : IComponentData
 {
-    public bool hitAnAsteroid;
     public AsteroidSizes asteroidSize;
+    public bool shouldBeDestroy;
 }
