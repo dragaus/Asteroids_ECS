@@ -19,7 +19,7 @@ public partial class HitAsteroidSystem : SystemBase
                 {
                     bulletData.hitAnAsteroid = false;
                     lifeTimeData.lifeTime = 0;
-                    for (int i = 0; i < 50; i++)
+                    for (int i = 0; i < 30; i++)
                     {
                         var instance = EntityManager.Instantiate(GameDataManager.instance.destroyAsteroidEntity);
                         EntityManager.SetComponentData(instance, new Rotation

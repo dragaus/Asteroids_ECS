@@ -18,6 +18,18 @@ public class ECSManager : MonoBehaviour
     EntityManager entityManager;
     BlobAssetStore blobAssetStore;
 
+    public static Vector2 GetScreenSize()
+    {
+        var camera = Camera.main;
+        if (camera == null)
+        {
+            Debug.LogWarning("You need a cemera to perform this action");
+            return Vector2.zero;
+        }
+
+        return new Vector2(camera.orthographicSize * Screen.width / Screen.height, camera.orthographicSize) * (camera.transform.position.z / -10);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,10 +50,14 @@ public class ECSManager : MonoBehaviour
         GameDataManager.instance.bulletEntity = bulletEntity;
         GameDataManager.instance.destroyAsteroidEntity= destroyAsteroidEntity;
 
+        var cameraSize = GetScreenSize();
+        GameDataManager.instance.xLimit = cameraSize.x;
+        GameDataManager.instance.yLimit = cameraSize.y;
+
         for (int i = 0; i < initialAmountOfAsteroids; i++)
         {
             var asteroidInstance = entityManager.Instantiate(bigAsteroidEntity);
-            var position = new float3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-7, 7), 0);
+            var position = new float3(UnityEngine.Random.Range(-cameraSize.x, cameraSize.x), UnityEngine.Random.Range(-cameraSize.y, cameraSize.y), 0);
             float rotationZ = UnityEngine.Random.Range(0f, 360f);
 
             entityManager.SetComponentData(asteroidInstance, new Translation { Value = position });

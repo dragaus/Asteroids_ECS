@@ -3,7 +3,8 @@ using Unity.Entities;
 
 public class GameDataManager : MonoBehaviour
 {
-    public static GameDataManager instance;
+    static GameDataManager m_instance;
+    public static GameDataManager instance { get => m_instance; }
 
     public Entity bigAsteroidEntity;
     public Entity mediumAsteroidEntity;
@@ -11,12 +12,15 @@ public class GameDataManager : MonoBehaviour
     public Entity destroyAsteroidEntity;
     public Entity bulletEntity;
 
+    public float xLimit;
+    public float yLimit;
+
     // Start is called before the first frame update
     void Awake()
     {
         if (instance == null)
         {
-            instance = this;
+            m_instance = this;
         }
         else
         {
@@ -28,7 +32,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (instance == this) 
         {
-            instance = null;
+            m_instance = null;
         }
     }
 }
