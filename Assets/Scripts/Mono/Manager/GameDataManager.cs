@@ -23,6 +23,8 @@ public class GameDataManager : MonoBehaviour
     public int score;
     public int destroyCount;
 
+    public bool isPlaying;
+
     // Start is called before the first frame update
     void Awake()
     {

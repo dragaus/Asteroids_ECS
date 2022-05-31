@@ -88,7 +88,8 @@ public class ECSManager : MonoBehaviour
         GameDataManager.instance.shieldEntity = shieldEntity;
         GameDataManager.instance.doubleShootEntity = doubleShootEntity;
 
-        entityManager.Instantiate(doubleShootEntity);
+        //entityManager.Instantiate(doubleShootEntity);
+        GameDataManager.instance.isPlaying = true;
 
         var cameraSize = GetScreenSize();
         GameDataManager.instance.xLimit = cameraSize.x;

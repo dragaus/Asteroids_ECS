@@ -21,7 +21,7 @@ public partial class ShootSystem : SystemBase
                     if (!shooter.shootDouble) { return; }
                     var secondBullet = EntityManager.Instantiate(GameDataManager.instance.bulletEntity);
                     EntityManager.SetComponentData(secondBullet, new Translation { Value = position.Value });
-                    EntityManager.SetComponentData(secondBullet, new Rotation { Value = math.mul(rotation.Value, quaternion.Euler(180f, 0 , 0)) });
+                    EntityManager.SetComponentData(secondBullet, new Rotation { Value = math.mul(rotation.Value, quaternion.Euler(0, 0 , 180)) });
                 }
             })
             .Run();

@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         livesText.gameObject.SetActive(false);
         instructionText.gameObject.SetActive(true);
-        instructionText.text = "Game over press enter to replay";
+        instructionText.text = $"Game over you win {scoreText.text} points";
     }
 
     private void OnDestroy()
