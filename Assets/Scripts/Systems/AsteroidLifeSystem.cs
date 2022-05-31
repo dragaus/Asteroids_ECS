@@ -8,7 +8,7 @@ public partial class AsteroidLifeSystem : SystemBase
     protected override void OnUpdate()
     {
         Entities
-            .WithName("HitAsteroidSystem")
+            .WithName("AsteroidLifeSystem")
             .ForEach((Entity entity, ref AsteroidData asteroidData, ref DestroyNowData destroyNowData, ref Translation position) =>
             {
                 if (asteroidData.shouldBeDestroy)

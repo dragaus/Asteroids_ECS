@@ -11,12 +11,28 @@ public partial class ShipSystem : SystemBase
         Entities
             .WithoutBurst()
             .WithName("ShipSystem")
-            .ForEach((ref PlayerData playerData, ref Translation position, ref DestroyNowData destroyNowData) =>
+            .ForEach((ref PlayerData playerData, ref Translation position,ref ShooterData shooterData, ref DestroyNowData destroyNowData) =>
             {
-                if (!playerData.canBeHit)
+                if (playerData.powerUp != KindOfPowerUp.None)
                 {
-                    playerData.untochableTime -= deltaTime;
-                    playerData.canBeHit = playerData.untochableTime <= 0;
+                    playerData.powerUpTime -= deltaTime;
+
+                    switch (playerData.powerUp)
+                    {
+                        case KindOfPowerUp.Shield:
+                            shooterData.shootDouble = false;
+                            playerData.canBeHit = playerData.powerUpTime <= 0;
+                            break;
+                        case KindOfPowerUp.DoubleShoot:
+                            playerData.canBeHit = true;
+                            shooterData.shootDouble = playerData.powerUpTime > 0;
+                            break;
+                    }
+
+                    if (playerData.powerUpTime <= 0)
+                    {
+                        playerData.powerUp = KindOfPowerUp.None;
+                    }
                 }
 
                 if (playerData.isHitByAsteroid)
@@ -31,7 +47,7 @@ public partial class ShipSystem : SystemBase
                         position.Value = float3.zero;
                         playerData.canBeHit = false;
                         playerData.isHitByAsteroid = false;
-                        playerData.untochableTime = gameDataManager.untouchableInitialTime;
+                        playerData.powerUpTime = gameDataManager.untouchableInitialTime;
                     }
                 }
             }).Run();

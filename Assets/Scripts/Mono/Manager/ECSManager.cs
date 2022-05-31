@@ -16,6 +16,9 @@ public class ECSManager : MonoBehaviour
     [SerializeField] GameObject mediumAsteroidPrefab;
     [SerializeField] GameObject smallAsteroidPrefab;
 
+    [SerializeField] GameObject shieldPowerUpPrefab;
+    [SerializeField] GameObject doubleShootPowerUpPrefab;
+
     [SerializeField] GameObject destroyAsteroidParticle;
 
     [SerializeField] GameObject playerPrefab;
@@ -73,6 +76,8 @@ public class ECSManager : MonoBehaviour
         var mediumAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(mediumAsteroidPrefab, settings);
         var smallAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(smallAsteroidPrefab, settings);
         var bulletEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bulletPrefab, settings);
+        var shieldEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(shieldPowerUpPrefab, settings);
+        var doubleShootEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(doubleShootPowerUpPrefab, settings);
         var destroyAsteroidEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(destroyAsteroidParticle, settings);
 
         GameDataManager.instance.bigAsteroidEntity = bigAsteroidEntity;
@@ -80,6 +85,10 @@ public class ECSManager : MonoBehaviour
         GameDataManager.instance.smallAsteroidEntity = smallAsteroidEntity;
         GameDataManager.instance.bulletEntity = bulletEntity;
         GameDataManager.instance.destroyAsteroidEntity = destroyAsteroidEntity;
+        GameDataManager.instance.shieldEntity = shieldEntity;
+        GameDataManager.instance.doubleShootEntity = doubleShootEntity;
+
+        entityManager.Instantiate(doubleShootEntity);
 
         var cameraSize = GetScreenSize();
         GameDataManager.instance.xLimit = cameraSize.x;
@@ -97,13 +106,16 @@ public class ECSManager : MonoBehaviour
         }
 
         var playerInstance = entityManager.Instantiate(playerEntity);
-        entityManager.SetComponentData(playerInstance, new PlayerData { canBeHit = false, untochableTime = GameDataManager.instance.untouchableInitialTime });
+        entityManager.SetComponentData(playerInstance, new PlayerData { canBeHit = false, powerUpTime = GameDataManager.instance.untouchableInitialTime, powerUp = KindOfPowerUp.Shield });
 
         UIManager.instance.ShowGameUI();
     }
 
     private void OnDestroy()
     {
-        blobAssetStore.Dispose();
+        if (blobAssetStore != null)
+        { 
+            blobAssetStore.Dispose();
+        }
     }
 }

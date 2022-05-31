@@ -5,5 +5,6 @@ public struct PlayerData : IComponentData
 {
     public bool isHitByAsteroid;
     public bool canBeHit;
-    public float untochableTime;
+    public float powerUpTime;
+    public KindOfPowerUp powerUp;
 }

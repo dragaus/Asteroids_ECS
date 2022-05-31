@@ -11,6 +11,8 @@ public class GameDataManager : MonoBehaviour
     public Entity smallAsteroidEntity;
     public Entity destroyAsteroidEntity;
     public Entity bulletEntity;
+    public Entity shieldEntity;
+    public Entity doubleShootEntity;
 
     public float xLimit;
     public float yLimit;
