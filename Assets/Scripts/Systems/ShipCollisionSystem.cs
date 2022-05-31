@@ -12,12 +12,10 @@ using Unity.Transforms;
 [UpdateAfter(typeof(EndFramePhysicsSystem))]
 public partial class ShipCollisionSystem : SystemBase
 {
-    static EntityManager entityManager;
     StepPhysicsWorld stepPhysicsWorld;
 
     protected override void OnCreate()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
     }
 

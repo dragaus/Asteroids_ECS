@@ -1,6 +1,7 @@
 using Unity.Entities;
 
 [UpdateAfter(typeof(DestroySystem))]
+[UpdateAfter(typeof(HitAsteroidSystem))]
 public partial class LifeTimeSystem : SystemBase
 {
     EndSimulationEntityCommandBufferSystem buffer;
