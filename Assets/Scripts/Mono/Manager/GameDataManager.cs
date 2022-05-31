@@ -15,8 +15,9 @@ public class GameDataManager : MonoBehaviour
     public float xLimit;
     public float yLimit;
 
-    public int lifes;
-    public int scores;
+    public int lives;
+    public int score;
+    public int destroyCount;
 
     // Start is called before the first frame update
     void Awake()
@@ -29,6 +30,42 @@ public class GameDataManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void DestroyAsteroid(AsteroidSizes sizes) 
+    {
+        int scoreToAdd = 0;
+        switch (sizes)
+        {
+            case AsteroidSizes.Big:
+                scoreToAdd = 20;
+                break;            
+            case AsteroidSizes.Medium:
+                scoreToAdd = 50;
+                break;            
+            case AsteroidSizes.Small:
+                scoreToAdd = 100;
+                destroyCount++;
+                break;
+        }
+        score = scoreToAdd;
+        UIManager.instance.UpddateScore(score);
+    }
+
+    public bool ShouldCreateAnotherAsteroid() 
+    { 
+        return destroyCount % 2 == 0 && destroyCount > 0;
+    }
+
+    public int LooseALife()
+    {
+        lives--;
+        UIManager.instance.UpdateLives(lives);
+        if (lives < 0)
+        {
+            UIManager.instance.GameOver();
+        }
+        return lives;
     }
 
     private void OnDestroy()

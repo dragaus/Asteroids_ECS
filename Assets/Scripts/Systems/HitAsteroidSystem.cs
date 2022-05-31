@@ -19,6 +19,7 @@ public partial class HitAsteroidSystem : SystemBase
                 {
                     bulletData.hitAnAsteroid = false;
                     lifeTimeData.lifeTime = 0;
+                    GameDataManager.instance.DestroyAsteroid(bulletData.asteroidSize);
                     for (int i = 0; i < 30; i++)
                     {
                         var instance = EntityManager.Instantiate(GameDataManager.instance.destroyAsteroidEntity);
@@ -44,7 +45,24 @@ public partial class HitAsteroidSystem : SystemBase
                             });
                         }
                     }
-
+                    else
+                    {
+                        if (GameDataManager.instance.ShouldCreateAnotherAsteroid())
+                        { 
+                            var instance = EntityManager.Instantiate(GameDataManager.instance.bigAsteroidEntity);
+                            EntityManager.SetComponentData(instance, new Translation
+                            {
+                                Value = new float3(
+                                UnityEngine.Random.Range(-GameDataManager.instance.xLimit, GameDataManager.instance.xLimit),
+                                UnityEngine.Random.Range(-GameDataManager.instance.yLimit, GameDataManager.instance.yLimit),
+                                0f)
+                            });
+                            EntityManager.SetComponentData(instance, new Rotation
+                            {
+                                Value = quaternion.Euler(0, 0, UnityEngine.Random.Range(0f, 360f))
+                            });
+                        }
+                    }
                 }
             }).Run();
     }
