@@ -24,13 +24,21 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        ShowInitialText();
+    }
+
+    public void ShowInitialText()
+    {
         scoreText.gameObject.SetActive(false);
         livesText.gameObject.SetActive(false);
         instructionText.gameObject.SetActive(true);
+        instructionText.text = "Press Enter to play";
     }
 
     public void ShowGameUI() 
     {
+        UpddateScore(0);
+        UpdateLives(GameDataManager.instance.lives);
         scoreText.gameObject.SetActive(true);
         livesText.gameObject.SetActive(true);
         instructionText.gameObject.SetActive(false);

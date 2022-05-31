@@ -1,12 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using Unity.Entities;
+using Unity.Physics;
 using Unity.Transforms;
+using Unity.Scenes;
 using Unity.Mathematics;
 
 public class ECSManager : MonoBehaviour
 {
-    InputAction action;
+    InputAction enterAction;
+
     public int initialAmountOfAsteroids;
     [SerializeField] GameObject bigAsteroidPrefab;
     [SerializeField] GameObject mediumAsteroidPrefab;
@@ -37,16 +41,23 @@ public class ECSManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        action = new InputAction();
-        action.AddCompositeBinding("Axis")
-            .With("Positive", "<Keyboard>/Y");
-        action.Enable();
-        action.performed += (context) =>
+        enterAction = new InputAction();
+        enterAction.AddCompositeBinding("Axis")
+            .With("Positive", "<Keyboard>/Enter");
+        enterAction.Enable();
+        enterAction.performed += (context) =>
         {
             if (shouldInitialize)
             {
                 Initialize();
                 shouldInitialize = false;
+                return;
+            }
+
+            if (GameDataManager.instance.lives <= 0)
+            {
+
+                return;
             }
         };
     }
@@ -85,7 +96,8 @@ public class ECSManager : MonoBehaviour
             entityManager.SetComponentData(asteroidInstance, new MovementData { movementSpeed = 2, baseMovementSpeed = 2 });
         }
 
-        entityManager.Instantiate(playerEntity);
+        var playerInstance = entityManager.Instantiate(playerEntity);
+        entityManager.SetComponentData(playerInstance, new PlayerData { canBeHit = false, untochableTime = GameDataManager.instance.untouchableInitialTime });
 
         UIManager.instance.ShowGameUI();
     }

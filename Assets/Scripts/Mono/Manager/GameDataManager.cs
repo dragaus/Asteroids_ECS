@@ -15,6 +15,8 @@ public class GameDataManager : MonoBehaviour
     public float xLimit;
     public float yLimit;
 
+    public float untouchableInitialTime;
+
     public int lives;
     public int score;
     public int destroyCount;
@@ -48,20 +50,20 @@ public class GameDataManager : MonoBehaviour
                 destroyCount++;
                 break;
         }
-        score = scoreToAdd;
+        score += scoreToAdd;
         UIManager.instance.UpddateScore(score);
     }
 
     public bool ShouldCreateAnotherAsteroid() 
     { 
-        return destroyCount % 2 == 0 && destroyCount > 0;
+        return destroyCount % 4 == 0 && destroyCount > 0;
     }
 
     public int LooseALife()
     {
         lives--;
         UIManager.instance.UpdateLives(lives);
-        if (lives < 0)
+        if (lives <= 0)
         {
             UIManager.instance.GameOver();
         }
