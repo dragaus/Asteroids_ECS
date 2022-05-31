@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
 public class ECSManager : MonoBehaviour
 {
+    InputAction action;
     public int initialAmountOfAsteroids;
     [SerializeField] GameObject bigAsteroidPrefab;
     [SerializeField] GameObject mediumAsteroidPrefab;
@@ -17,6 +19,8 @@ public class ECSManager : MonoBehaviour
 
     EntityManager entityManager;
     BlobAssetStore blobAssetStore;
+
+    bool shouldInitialize = true;
 
     public static Vector2 GetScreenSize()
     {
@@ -33,6 +37,22 @@ public class ECSManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        action = new InputAction();
+        action.AddCompositeBinding("Axis")
+            .With("Positive", "<Keyboard>/Y");
+        action.Enable();
+        action.performed += (context) =>
+        {
+            if (shouldInitialize)
+            {
+                Initialize();
+                shouldInitialize = false;
+            }
+        };
+    }
+
+    void Initialize()
+    {
         blobAssetStore = new BlobAssetStore();
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore);
@@ -48,7 +68,7 @@ public class ECSManager : MonoBehaviour
         GameDataManager.instance.mediumAsteroidEntity = mediumAsteroidEntity;
         GameDataManager.instance.smallAsteroidEntity = smallAsteroidEntity;
         GameDataManager.instance.bulletEntity = bulletEntity;
-        GameDataManager.instance.destroyAsteroidEntity= destroyAsteroidEntity;
+        GameDataManager.instance.destroyAsteroidEntity = destroyAsteroidEntity;
 
         var cameraSize = GetScreenSize();
         GameDataManager.instance.xLimit = cameraSize.x;
@@ -66,6 +86,8 @@ public class ECSManager : MonoBehaviour
         }
 
         entityManager.Instantiate(playerEntity);
+
+        UIManager.instance.ShowGameUI();
     }
 
     private void OnDestroy()

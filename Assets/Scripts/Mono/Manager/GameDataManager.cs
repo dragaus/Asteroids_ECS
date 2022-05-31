@@ -15,6 +15,9 @@ public class GameDataManager : MonoBehaviour
     public float xLimit;
     public float yLimit;
 
+    public int lifes;
+    public int scores;
+
     // Start is called before the first frame update
     void Awake()
     {
