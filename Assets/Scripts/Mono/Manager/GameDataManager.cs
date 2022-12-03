@@ -53,6 +53,9 @@ public class GameDataManager : MonoBehaviour
                 scoreToAdd = 100;
                 destroyCount++;
                 break;
+            case AsteroidSizes.Alien:
+                scoreToAdd = 100;
+                break;
         }
         score += scoreToAdd;
         UIManager.instance.UpddateScore(score);

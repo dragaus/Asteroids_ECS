@@ -15,6 +15,7 @@ public class ECSManager : MonoBehaviour
     [SerializeField] GameObject bigAsteroidPrefab;
     [SerializeField] GameObject mediumAsteroidPrefab;
     [SerializeField] GameObject smallAsteroidPrefab;
+    [SerializeField] GameObject alienPrefab;
 
     [SerializeField] GameObject shieldPowerUpPrefab;
     [SerializeField] GameObject doubleShootPowerUpPrefab;

@@ -210,6 +210,7 @@ MonoBehaviour:
   lives: 3
   score: 0
   destroyCount: 0
+  isPlaying: 0
 --- !u!4 &671064021
 Transform:
   m_ObjectHideFlags: 0
